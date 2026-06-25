@@ -112,7 +112,7 @@ Correct Answer
 - Express
 
 ### Database
-- PostgreSQL / Supabase
+- Supabase
 
 ### AI
 - Gemini API 
