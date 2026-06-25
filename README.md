@@ -4,6 +4,17 @@
 
 ---
 
+## Run & Operate
+
+- `pnpm --filter @workspace/api-server run dev` — run the API server (port 8080)
+- `pnpm --filter @workspace/kokak run dev` — run the frontend (port 18748)
+- `pnpm run typecheck` — full typecheck across all packages
+- `pnpm run build` — typecheck + build all packages
+- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
+- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
+- Required env: `DATABASE_URL` — Postgres connection string
+
+
 ## 📖 Overview
 
 The Philippines is home to more than 130 languages, yet many regional languages remain underrepresented in digital resources. Kokak aims to make language learning engaging through a familiar Wordle-style game while gradually building an open lexical resource of Philippine languages.

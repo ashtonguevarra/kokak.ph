@@ -1,0 +1,74 @@
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+coverage/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# TypeScript
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+# Vite
+.vite/
+
+# Turborepo (if used)
+.turbo/
+
+# pnpm
+.pnpm-store/
+
+# ESLint cache
+.eslintcache
+
+# Parcel cache
+.parcel-cache/
+
+# Next.js (if ever added)
+.next/
+
+# Local database files
+*.sqlite
+*.db
+
+# Supabase local
+.supabase/
+
+# Generated files
+generated/
+
+# Build output
+dist/
+
+# TypeScript
+*.tsbuildinfo
