@@ -1,6 +1,6 @@
 # 🐸 Kokak
 
-**Kokak** is a web-based educational game inspired by **Wordle** that promotes learning and preserving Philippine languages through interactive word puzzles. Players translate Filipino words into their chosen regional language while learning each word's meaning, pronunciation, and usage. To encourage community participation, users can also contribute new words that are reviewed and validated using AI before being added to the platform.
+**Kokak** is a web-based educational game inspired by **Wordle** that promotes learning and preserving Philippine languages through interactive word puzzles. To encourage community participation, players translate Filipino words into their chosen regional language while learning each word's meaning, pronunciation, and usage. Users can contribute new words that are reviewed and validated using AI before being added to the platform.
 
 ---
 
