@@ -1,0 +1,258 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: Kokak API - Philippine language word puzzle game
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: languages
+    description: Language operations
+  - name: puzzle
+    description: Word puzzle operations
+  - name: contributions
+    description: Word contribution operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /languages:
+    get:
+      operationId: listLanguages
+      tags: [languages]
+      summary: List available languages
+      description: Returns all supported Philippine regional languages
+      responses:
+        "200":
+          description: List of languages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Language"
+
+  /puzzle:
+    get:
+      operationId: getRandomPuzzle
+      tags: [puzzle]
+      summary: Get a random word puzzle
+      description: Returns a random Filipino word puzzle for the given language
+      parameters:
+        - name: languageCode
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The language code (e.g. ceb, ilo, hil)
+      responses:
+        "200":
+          description: A word puzzle
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Puzzle"
+        "404":
+          description: No words found for this language
+
+  /puzzle/{id}:
+    get:
+      operationId: getPuzzleById
+      tags: [puzzle]
+      summary: Get puzzle with full details
+      description: Returns a puzzle with meaning, pronunciation, and example sentence (for post-solve reveal)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Full puzzle details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PuzzleDetail"
+        "404":
+          description: Puzzle not found
+
+  /contributions:
+    get:
+      operationId: listContributions
+      tags: [contributions]
+      summary: List word contributions
+      description: Returns submitted word contributions
+      responses:
+        "200":
+          description: List of contributions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Contribution"
+    post:
+      operationId: submitContribution
+      tags: [contributions]
+      summary: Submit a new word contribution
+      description: Submit a new word to be added to the dictionary
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ContributionInput"
+      responses:
+        "201":
+          description: Contribution submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Contribution"
+        "400":
+          description: Invalid input
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    Language:
+      type: object
+      properties:
+        id:
+          type: integer
+        code:
+          type: string
+        name:
+          type: string
+        wordCount:
+          type: integer
+      required:
+        - id
+        - code
+        - name
+        - wordCount
+
+    Puzzle:
+      type: object
+      properties:
+        id:
+          type: integer
+        filipinoWord:
+          type: string
+        targetWord:
+          type: string
+        wordLength:
+          type: integer
+        languageCode:
+          type: string
+        languageName:
+          type: string
+      required:
+        - id
+        - filipinoWord
+        - targetWord
+        - wordLength
+        - languageCode
+        - languageName
+
+    PuzzleDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+        filipinoWord:
+          type: string
+        targetWord:
+          type: string
+        wordLength:
+          type: integer
+        languageCode:
+          type: string
+        languageName:
+          type: string
+        meaning:
+          type: string
+        pronunciation:
+          type: string
+        exampleSentence:
+          type: string
+        usageNotes:
+          type: ["string", "null"]
+      required:
+        - id
+        - filipinoWord
+        - targetWord
+        - wordLength
+        - languageCode
+        - languageName
+        - meaning
+        - pronunciation
+        - exampleSentence
+
+    Contribution:
+      type: object
+      properties:
+        id:
+          type: integer
+        word:
+          type: string
+        languageCode:
+          type: string
+        meaning:
+          type: string
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+        submittedAt:
+          type: string
+          format: date-time
+        aiValidationNote:
+          type: ["string", "null"]
+      required:
+        - id
+        - word
+        - languageCode
+        - meaning
+        - status
+        - submittedAt
+
+    ContributionInput:
+      type: object
+      properties:
+        word:
+          type: string
+          minLength: 1
+        languageCode:
+          type: string
+          minLength: 1
+        meaning:
+          type: string
+          minLength: 1
+        filipinoEquivalent:
+          type: ["string", "null"]
+      required:
+        - word
+        - languageCode
+        - meaning
