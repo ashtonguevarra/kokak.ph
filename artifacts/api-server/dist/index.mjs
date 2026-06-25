@@ -28141,7 +28141,7 @@ var require_pino = __commonJS({
     function pinoBundlerAbsolutePath(p) {
       try {
         const path = __require("path");
-        const outputDir = "/home/ashton/kokak.ph/artifacts/api-server/dist";
+        const outputDir = "/home/dean/kokak.ph/artifacts/api-server/dist";
         return path.resolve(outputDir, p.replace(/^\.\//, ""));
       } catch (e) {
         const f = new Function("p", "return new URL(p, import.meta.url).pathname");
@@ -44722,6 +44722,7 @@ var contributionsTable = pgTable("contributions", {
 
 // ../../lib/db/src/index.ts
 var { Pool: Pool3 } = esm_default;
+console.log("DATABASE_URL:", process.env.DATABASE_URL);
 if (!process.env.DATABASE_URL) {
   throw new Error(
     "DATABASE_URL must be set. Did you forget to provision a database?"
