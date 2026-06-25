@@ -1,29 +1,16 @@
 {
-  "name": "kokak.ph",
-  "version": "1.0.0",
-  "description": "**Kokak** is a web-based educational game inspired by **Wordle** that promotes learning and preserving Philippine languages through interactive word puzzles. Players translate Filipino words into their chosen regional language while learning each word's meaning, pronunciation, and usage. To encourage community participation, users can also contribute new words that are reviewed and validated using AI before being added to the platform.",
-  "main": "index.js",
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
+    "build": "pnpm run typecheck && pnpm -r --if-present run build",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ashtonguevarra/kokak.ph.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ashtonguevarra/kokak.ph/issues"
-  },
-  "homepage": "https://github.com/ashtonguevarra/kokak.ph#readme",
-  "dependencies": {
-    "@supabase/supabase-js": "^2.108.2",
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1"
-  },
+  "private": true,
   "devDependencies": {
-    "nodemon": "^3.1.14"
+    "prettier": "^3.8.4",
+    "typescript": "~5.9.3"
   }
 }
