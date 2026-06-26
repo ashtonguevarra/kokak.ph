@@ -12,7 +12,7 @@ const port = Number(rawPort);
 const basePath = process.env.BASE_PATH || "/";
 
 export default defineConfig({
-  base: basePath,
+  base: /kokak.ph/,
   plugins: [
     react(),
     tailwindcss(),
