@@ -165,9 +165,9 @@ All architecture, design decisions, database schema, feature implementation, tes
 ## 👥 Contributors
 
 Sudo Froglets
-- Shane Dela Rama
-- Deanna de la Cruz
-- Ashton Guevarra 
-- JC Quidilla
+- Shane Dela Rama: Project Manager, UI/UX
+- Deanna de la Cruz: Backend Engineer
+- Ashton Guevarra: Backend Engineer
+- JC Quidilla: Frontend Engineer
 
 ---
