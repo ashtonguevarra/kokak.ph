@@ -357,42 +357,50 @@ export default function Play() {
           </div>
         )}
 
-        {/* Keyboard */}
-        <div className="w-full space-y-2 mt-auto pb-4">
-          {keyboardRows.map((row, i) => (
-            <div key={i} className="flex justify-center gap-1 md:gap-1.5">
-              {row.map((key) => {
-                const isSpecial = key.length > 1;
-                const status = letterStatuses[key];
-                
-                const bgColors: Record<string, string> = {
-                  correct: "bg-secondary text-primary-foreground hover:bg-secondary/90 border-secondary",
-                  present: "bg-accent text-accent-foreground hover:bg-accent/90 border-accent",
-                  absent: "bg-muted text-muted-foreground hover:bg-muted/90 border-muted",
-                  unused: "bg-card text-card-foreground border border-border hover:bg-muted"
-                };
+                {/* Keyboard */}
+        {gameStatus === "playing" && (
+          <div className="w-full space-y-2 mt-auto pb-4">
+            {keyboardRows.map((row, i) => (
+              <div key={i} className="flex justify-center gap-1 md:gap-1.5">
+                {row.map((key) => {
+                  const isSpecial = key.length > 1;
+                  const status = letterStatuses[key];
 
-                const bgColor = status ? bgColors[status] : bgColors.unused;
+                  const bgColors: Record<string, string> = {
+                    correct:
+                      "bg-secondary text-primary-foreground hover:bg-secondary/90 border-secondary",
+                    present:
+                      "bg-accent text-accent-foreground hover:bg-accent/90 border-accent",
+                    absent:
+                      "bg-muted text-muted-foreground hover:bg-muted/90 border-muted",
+                    unused:
+                      "bg-card text-card-foreground border border-border hover:bg-muted",
+                  };
 
-                return (
-                  <button
-                    key={key}
-                    onClick={() => onKeyPress(key)}
-                    disabled={gameStatus !== "playing"}
-                    className={`
-                      ${isSpecial ? "px-3 md:px-4 text-xs font-bold" : "w-8 md:w-10 text-sm font-bold font-mono"} 
-                      h-12 md:h-14 rounded-md flex items-center justify-center transition-colors shadow-sm
-                      ${bgColor}
-                      ${gameStatus !== "playing" ? "opacity-50 cursor-not-allowed" : ""}
-                    `}
-                  >
-                    {key === "Backspace" ? "DEL" : key}
-                  </button>
-                );
-              })}
-            </div>
-          ))}
-        </div>
+                  const bgColor = status ? bgColors[status] : bgColors.unused;
+
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => onKeyPress(key)}
+                      className={`
+                        ${
+                          isSpecial
+                            ? "px-3 md:px-4 text-xs font-bold"
+                            : "w-8 md:w-10 text-sm font-bold font-mono"
+                        }
+                        h-12 md:h-14 rounded-md flex items-center justify-center
+                        transition-colors shadow-sm ${bgColor}
+                      `}
+                    >
+                      {key === "Backspace" ? "DEL" : key}
+                    </button>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

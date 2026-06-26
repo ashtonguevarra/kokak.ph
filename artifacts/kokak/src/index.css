@@ -48,7 +48,6 @@
 --app-font-serif:"Press Start 2P",cursive;
 --app-font-mono:"Press Start 2P",monospace;
 
-
 --background: 125 40% 9% / 0.5;
 --foreground:55 95% 92%;
 
@@ -114,10 +113,12 @@
 body {
     @apply bg-background text-foreground font-sans;
 
-    min-height: 100vh;
-      background-image: url('https://wallpapercave.com/wp/wp11862513.png');
-  background-size: cover; /* Makes the image fill the entire area */
-  background-position: center; 
+    height: auto;
+    background-image: url("/PhrogLOGO.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed
 
 }
 
@@ -244,7 +245,4 @@ h2{
 }
 
 }
-
-
-
 
