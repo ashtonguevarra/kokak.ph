@@ -160,12 +160,12 @@ export default function Contribute() {
           <div className="space-y-4">
             {isLoadingContributions ? (
               [1, 2, 3].map(i => <Skeleton key={i} className="h-24 w-full rounded-xl bg-muted/50" />)
-            ) : contributions?.length === 0 ? (
+            ) : Array.isArray(contributions) && contributions.length === 0 ? (
               <div className="text-center py-12 border-2 border-dashed border-border rounded-xl">
                 <p className="text-muted-foreground">No contributions yet. Be the first!</p>
               </div>
             ) : (
-              contributions?.slice(0, 5).map(contribution => (
+              Array.isArray(contributions) && contributions.slice(0, 5).map(contribution => (
                 <Card key={contribution.id} className="bg-card hover:border-primary/30 transition-colors shadow-sm">
                   <CardContent className="p-5 flex justify-between items-center">
                     <div>

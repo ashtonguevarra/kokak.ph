@@ -1,0 +1,72 @@
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'pg' imported from /home/ashton/kokak.ph/seed-tmp.mjs
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+    at packageResolve (node:internal/modules/esm/resolve:768:81)
+    at moduleResolve (node:internal/modules/esm/resolve:859:18)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:704:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:724:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:762:56)
+    at #resolve (node:internal/modules/esm/loader:686:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:606:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v26.3.1
+[ashton@ashton kokak.ph]$ node seed-tmp.mjs && rm seed-tmp.mjs
+node:internal/modules/package_json_reader:301
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'pg' imported from /home/ashton/kokak.ph/seed-tmp.mjs
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+    at packageResolve (node:internal/modules/esm/resolve:768:81)
+    at moduleResolve (node:internal/modules/esm/resolve:859:18)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:704:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:7[ashton@ashton kokak.ph]$ psql "your-neon-connection-string" << 'SQL'
+CREATE TABLE IF NOT EXISTS languages (id SERIAL PRIMARY KEY, code TEXT NOT NULL UNIQUE, name TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS words (id SERIAL PRIMARY KEY, filipino_word TEXT NOT NULL, target_word TEXT NOT NULL, language_code TEXT NOT NULL, meaning TEXT NOT NULL, pronunciation TEXT NOT NULL, example_sentence TEXT NOT NULL, usage_notes TEXT);
+CREATE TABLE IF NOT EXISTS contributions (id SERIAL PRIMARY KEY, word TEXT NOT NULL, language_code TEXT NOT NULL, meaning TEXT NOT NULL, filipino_equivalent TEXT, status TEXT NOT NULL DEFAULT 'pending', submitted_at TEXT NOT NULL, ai_validation_note TEXT);
+
+INSERT INTO languages (code, name) VALUES ('ceb','Cebuano'),('ilo','Ilocano'),('hil','Hiligaynon') ON CONFLICT (code) DO NOTHING;
+
+INSERT INTO words (filipino_word,target_word,language_code,meaning,pronunciation,example_sentence) VALUES
+('bahay','balay','ceb','A dwelling place or home.','ba-LAY','Dako ang akong balay.'),
+('tubig','tubig','ceb','Water.','TU-big','Hatagi ko og tubig, palihug.'),
+('araw','adlaw','ceb','The sun, or a day.','AD-law','Mainit ang adlaw karon.'),
+('puso','puso','ceb','The heart.','PU-so','Maayo ang puso ni Maria.'),
+('ilaw','suga','ceb','Light.','SU-ga','I-on ang suga sa sala.'),
+('pagkain','pagkaon','ceb','Food.','pag-KA-on','Lami ang pagkaon sa pyesta.'), 
+('kaibigan','higala','ceb','A friend.','hi-GA-la','Higala ko siya sukad pa sa bata.'),
+('gabi','gabii','ceb','Night.','ga-BI-i','Mangadto ko ugma sa gabii.'),
+('buwan','buwan','ceb','The moon.','BU-wan','Hayag ang buwan ganinay.'),
+('langit','langit','ceb','The sky.','LA-ngit','Asul ang langit karon.'),
+('bahay','balay','ilo','A home.','BA-lay','Adayo ti balay ko.'),
+('tubig','danum','ilo','Water.','DA-num','Inum ka ti danum.'),
+('araw','aldaw','ilo','The sun.','AL-daw','Napintas ti aldaw ita.'),
+('gabi','rabii','ilo','Night.','ra-BI-i','Mapan ak iti rabii.'),
+('pagkain','kanon','ilo','Food.','KA-non','Naimas ti kanon.'),
+('kaibigan','gayyem','ilo','A friend.','GAY-yem','Gayyem ko ni Juan.'),
+('langit','langit','ilo','The sky.','LA-ngit','Berde ti langit.'),
+('buwan','bulan','ilo','The moon.','BU-lan','Napintas ti bulan ita rabii.'),
+('lupa','daga','ilo','Earth or soil.','DA-ga','Nalukmeg ti daga ditoy.'),
+('puso','puso','ilo','The heart.','PU-so','Nasakit ti puso ko.'),
+('bahay','balay','hil','A house.','BA-lay','Dako ang amon balay.'),
+('tubig','tubig','hil','Water.','TU-big','Hatagan mo ako sang tubig.'),
+('araw','adlaw','hil','The sun.','AD-law','Mainit ang adlaw subong.'),
+('gabi','gab-i','hil','Night.','GAB-i','Sige na, gab-i na.'),
+('pagkain','pagkaon','hil','Food.','pag-KA-on','Masarap ang pagkaon sa fiesta.'),
+('kaibigan','abyan','hil','A friend.','AB-yan','Abyan ko si Pedro.'),
+('lupa','duta','hil','Land or soil.','DU-ta','Maayo ang duta sa Iloilo.'),
+('puso','puso','hil','The heart.','PU-so','Mapinalangga ang iya puso.'),
+('langit','langit','hil','Sky.','LA-ngit','Asul ang langit subong.'),
+('buwan','bulan','hil','The moon.','BU-lan','Hayag ang bulan gahapon.')
+ON CONFLICT DO NOTHING;
+SQL
+psql: error: connection to server on socket "/run/postgresql/.s.PGSQL.5432" failed: No such file or directory
+	Is the server running locally and accepting connections on that socket?
+[ashton@ashton kokak.ph]$ 

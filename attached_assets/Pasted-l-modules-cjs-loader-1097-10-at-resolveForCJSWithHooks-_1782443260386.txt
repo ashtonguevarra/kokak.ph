@@ -1,0 +1,162 @@
+l/modules/cjs/loader:1097:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1124:12)
+    at Module._load (node:internal/modules/cjs/loader:1296:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v26.3.1
+[ashton@ashton kokak.ph]$ export DATABASE_URL="your-neon-connection-string"
+[ashton@ashton kokak.ph]$ node scripts/seed-standalone.mjs
+node:internal/modules/cjs/loader:1522
+  throw err;
+  ^
+
+Error: Cannot find module '/home/ashton/kokak.ph/scripts/seed-standalone.mjs'
+    at Module._resolveFilename (node:internal/modules/cjs/loader:1519:15)
+    at wrapResolveFilename (node:internal/modules/cjs/loader:1073:27)
+    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1097:10)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1124:12)
+    at Module._load (node:internal/modules/cjs/loader:1296:5)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v26.3.1
+[ashton@ashton kokak.ph]$ ^C
+[ashton@ashton kokak.ph]$ node scripts/seed-standalone.mjs
+file:///home/ashton/kokak.ph/scripts/seed-standalone.mjs:6
+await client.connect();node:internal/modules/cjs/loader:1124:12)
+                                                       ^
+
+SyntaxError: Unexpected token ':'
+    at compileSourceTextModule (node:internal/modules/esm/utils:354:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:90:18)
+    at #translate (node:internal/modules/esm/loader:437:20)
+    at afterLoad (node:internal/modules/esm/loader:505:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:510:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:563:36)
+    at afterResolve (node:internal/modules/esm/loader:610:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:616:12)
+    at node:internal/modules/esm/loader:635:32
+    at TracingChannel.tracePromise (node:diagnostics_channel:539:22)
+
+Node.js v26.3.1
+[ashton@ashton kokak.ph]$ node scripts/seed-standalone.mjs`1^C
+[ashton@ashton kokak.ph]$ cd ~/kokak.ph 
+git pull
+export DATABASE_URL="your-neon-connection-string"
+node scripts/seed-standalone.mjs
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> workingBranchForUI
+
+file:///home/ashton/kokak.ph/scripts/seed-standalone.mjs:6
+await client.connect();node:internal/modules/cjs/loader:1124:12)
+                                                       ^
+
+SyntaxError: Unexpected token ':'
+    at compileSourceTextModule (node:internal/modules/esm/utils:354:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:90:18)
+    at #translate (node:internal/modules/esm/loader:437:20)
+    at afterLoad (node:internal/modules/esm/loader:505:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:510:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:563:36)
+    at afterResolve (node:internal/modules/esm/loader:610:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:616:12)
+    at node:internal/modules/esm/loader:635:32
+    at TracingChannel.tracePromise (node:diagnostics_channel:539:22)
+
+Node.js v26.3.1
+[ashton@ashton kokak.ph]$ node scripts/seed-standalone.mjs
+file:///home/ashton/kokak.ph/scripts/seed-standalone.mjs:6
+await client.connect();node:internal/modules/cjs/loader:1124:12)
+                                                       ^
+
+SyntaxError: Unexpected token ':'
+    at compileSourceTextModule (node:internal/modules/esm/utils:354:16)
+    at ModuleLoader.moduleStrategy (node:internal/modules/esm/translators:90:18)
+    at #translate (node:internal/modules/esm/loader:437:20)
+    at afterLoad (node:internal/modules/esm/loader:505:29)
+    at ModuleLoader.loadAndTranslate (n[ashton@ashton kokak.ph]$ cat > /tmp/seed.mjs << 'EOF'
+import pg from "pg";
+const { Client } = pg;
+const client = new Client({ connectionString: process.env.DATABASE_URL });
+await client.connect();
+await client.query(`
+  CREATE TABLE IF NOT EXISTS languages (id SERIAL PRIMARY KEY, code TEXT NOT NULL UNIQUE, name TEXT NOT NULL);
+  CREATE TABLE IF NOT EXISTS words (id SERIAL PRIMARY KEY, filipino_word TEXT NOT NULL, target_word TEXT NOT NULL, language_code TEXT NOT NULL, meaning TEXT NOT NULL, pronunciation TEXT NOT NULL, example_sentence TEXT NOT NULL, usage_notes TEXT);
+  CREATE TABLE IF NOT EXISTS contributions (id SERIAL PRIMARY KEY, word TEXT NOT NULL, language_code TEXT NOT NULL, meaning TEXT NOT NULL, filipino_equivalent TEXT, status TEXT NOT NULL DEFAULT 'pending', submitted_at TEXT NOT NULL, ai_validation_note TEXT);
+`);
+await client.query(`INSERT INTO languages (code, name) VALUES ('ceb','Cebuano'),('ilo','Ilocano'),('hil','Hiligaynon') ON CONFLICT (code) DO NOTHING`);
+const words = [
+  ["bahay","balay","ceb","A dwelling place or home.","ba-LAY","Dako ang akong balay."],
+  ["tubig","tubig","ceb","Water; the liquid essential for life.","TU-big","Hatagi ko og tubig, palihug."],
+  ["araw","adlaw","ceb","The sun, or a day.","AD-law","Mainit ang adlaw karon."],
+  ["puso","puso","ceb","The heart.","PU-so","Maayo ang puso ni Maria."],
+  ["ilaw","suga","ceb","Light or illumination.","SU-ga","I-on ang suga sa sala."],
+  ["pagkain","pagkaon","ceb","Food; nourishment.","pag-KA-on","Lami ang pagkaon sa pyesta."],
+  ["kaibigan","higala","ceb","A friend.","hi-GA-la","Higala ko siya sukad pa sa bata."],
+  ["gabi","gabii","ceb","Night.","ga-BI-i","Mangadto ko ugma sa gabii."],
+  ["buwan","buwan","ceb","The moon, or a month.","BU-wan","Hayag ang buwan ganinay."],
+  ["langit","langit","ceb","The sky or heaven.","LA-ngit","Asul ang langit karon."],
+  ["bahay","balay","ilo","A home.","BA-lay","Adayo ti balay ko."],
+  ["tubig","danum","ilo","Water.","DA-num","Inum ka ti danum."],
+  ["araw","aldaw","ilo","The sun, or a day.","AL-daw","Napintas ti aldaw ita."],
+  ["gabi","rabii","ilo","Night.","ra-BI-i","Mapan ak iti rabii."],
+  ["pagkain","kanon","ilo","Food.","KA-non","Naimas ti kanon."],
+  ["kaibigan","gayyem","ilo","A friend.","GAY-yem","Gayyem ko ni Juan."],
+  ["langit","langit","ilo","The sky or heaven.","LA-ngit","Berde ti langit."], 
+  ["buwan","bulan","ilo","The moon, or a month.","BU-lan","Napintas ti bulan ita rabii."],
+  ["lupa","daga","ilo","Earth or soil.","DA-ga","Nalukmeg ti daga ditoy."],
+  ["puso","puso","ilo","The heart.","PU-so","Nasakit ti puso ko."],
+  ["bahay","balay","hil","A house.","BA-lay","Dako ang amon balay."],
+  ["tubig","tubig","hil","Water.","TU-big","Hatagan mo ako sang tubig."],
+  ["araw","adlaw","hil","The sun, or a day.","AD-law","Mainit ang adlaw subong."],
+  ["gabi","gab-i","hil","Night.","GAB-i","Sige na, gab-i na."],
+  ["pagkain","pagkaon","hil","Food.","pag-KA-on","Masarap ang pagkaon sa fiesta."],
+  ["kaibigan","abyan","hil","A friend.","AB-yan","Abyan ko si Pedro."],
+  ["lupa","duta","hil","Land or soil.","DU-ta","Maayo ang duta sa Iloilo."],
+  ["puso","puso","hil","The heart.","PU-so","Mapinalangga ang iya puso."],
+  ["langit","langit","hil","Sky or heaven.","LA-ngit","Asul ang langit subong."],
+  ["buwan","bulan","hil","The moon.","BU-lan","Hayag ang bulan gahapon."],
+];
+for (const [fw,tw,lc,m,p,ex] of words) {
+  await client.query(`INSERT INTO words (filipino_word,target_word,language_code,meaning,pronunciation,example_sentence) VALUES ($1,$2,$3,$4,$5,$6) ON CONFLICT DO NOTHING`,[fw,tw,lc,m,p,ex]);
+}
+console.log("Done! Seeded 3 languages and 30 words.");
+await client.end();
+EOF
+node /tmp/seed.mjs
+node:internal/modules/package_json_reader:301
+  throw new ERR_MODULE_NOT_FOUND(packageName, fileURLToPath(base), null);
+        ^
+
+Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'pg' imported from /tmp/seed.mjs
+    at Object.getPackageJSONURL (node:internal/modules/package_json_reader:301:9)
+    at packageResolve (node:internal/modules/esm/resolve:768:81)
+    at moduleResolve (node:internal/modules/esm/resolve:859:18)
+    at defaultResolve (node:internal/modules/esm/resolve:992:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:704:20)
+    at #resolveAndMaybeBlockOnLoaderThread (node:internal/modules/esm/loader:724:38)
+    at ModuleLoader.resolveSync (node:internal/modules/esm/loader:762:56)
+    at #resolve (node:internal/modules/esm/loader:686:17)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:606:35)
+    at ModuleJob.syncLink (node:internal/modules/esm/module_job:163:33) {
+  code: 'ERR_MODULE_NOT_FOUND'
+}
+
+Node.js v26.3.1
+[ashton@ashton kokak.ph]$ 

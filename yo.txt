@@ -1,0 +1,13 @@
+
+postgresql://neondb_owner:npg_aRKskbnOZA58@ep-cool-frost-atbt0qnq-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+
+export DATABASE_URL="postgresql://neondb_owner:npg_aRKskbnOZA58@ep-cool-frost-atbt0qnq-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+export PORT=8080
+cd ~/kokak.ph
+pnpm --filter @workspace/api-server run dev
+
+export DATABASE_URL="postgresql://neondb_owner:npg_aRKskbnOZA58@ep-cool-frost-atbt0qnq-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
+export PORT=18748
+export BASE_PATH=/
+cd ~/kokak.ph
+pnpm --filter @workspace/kokak run dev

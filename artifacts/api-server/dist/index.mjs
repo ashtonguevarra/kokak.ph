@@ -20651,27 +20651,27 @@ var require_router = __commonJS({
     var slice = Array.prototype.slice;
     var flatten = Array.prototype.flat;
     var methods = METHODS.map((method) => method.toLowerCase());
-    module.exports = Router7;
+    module.exports = Router6;
     module.exports.Route = Route;
-    function Router7(options) {
-      if (!(this instanceof Router7)) {
-        return new Router7(options);
+    function Router6(options) {
+      if (!(this instanceof Router6)) {
+        return new Router6(options);
       }
       const opts = options || {};
-      function router7(req, res, next) {
-        router7.handle(req, res, next);
+      function router6(req, res, next) {
+        router6.handle(req, res, next);
       }
-      Object.setPrototypeOf(router7, this);
-      router7.caseSensitive = opts.caseSensitive;
-      router7.mergeParams = opts.mergeParams;
-      router7.params = {};
-      router7.strict = opts.strict;
-      router7.stack = [];
-      return router7;
+      Object.setPrototypeOf(router6, this);
+      router6.caseSensitive = opts.caseSensitive;
+      router6.mergeParams = opts.mergeParams;
+      router6.params = {};
+      router6.strict = opts.strict;
+      router6.stack = [];
+      return router6;
     }
-    Router7.prototype = function() {
+    Router6.prototype = function() {
     };
-    Router7.prototype.param = function param(name, fn) {
+    Router6.prototype.param = function param(name, fn) {
       if (!name) {
         throw new TypeError("argument name is required");
       }
@@ -20691,7 +20691,7 @@ var require_router = __commonJS({
       params.push(fn);
       return this;
     };
-    Router7.prototype.handle = function handle(req, res, callback) {
+    Router6.prototype.handle = function handle(req, res, callback) {
       if (!callback) {
         throw new TypeError("argument callback is required");
       }
@@ -20818,7 +20818,7 @@ var require_router = __commonJS({
         }
       }
     };
-    Router7.prototype.use = function use(handler) {
+    Router6.prototype.use = function use(handler) {
       let offset = 0;
       let path = "/";
       if (typeof handler !== "function") {
@@ -20851,7 +20851,7 @@ var require_router = __commonJS({
       }
       return this;
     };
-    Router7.prototype.route = function route(path) {
+    Router6.prototype.route = function route(path) {
       const route2 = new Route(path);
       const layer = new Layer(path, {
         sensitive: this.caseSensitive,
@@ -20866,7 +20866,7 @@ var require_router = __commonJS({
       return route2;
     };
     methods.concat("all").forEach(function(method) {
-      Router7.prototype[method] = function(path) {
+      Router6.prototype[method] = function(path) {
         const route = this.route(path);
         route[method].apply(route, slice.call(arguments, 1));
         return this;
@@ -21049,13 +21049,13 @@ var require_application = __commonJS({
     var compileTrust = require_utils3().compileTrust;
     var resolve = __require("node:path").resolve;
     var once = require_once();
-    var Router7 = require_router();
+    var Router6 = require_router();
     var slice = Array.prototype.slice;
     var flatten = Array.prototype.flat;
     var app2 = exports = module.exports = {};
     var trustProxyDefaultSymbol = "@@symbol:trust_proxy_default";
     app2.init = function init() {
-      var router7 = null;
+      var router6 = null;
       this.cache = /* @__PURE__ */ Object.create(null);
       this.engines = /* @__PURE__ */ Object.create(null);
       this.settings = /* @__PURE__ */ Object.create(null);
@@ -21064,13 +21064,13 @@ var require_application = __commonJS({
         configurable: true,
         enumerable: true,
         get: function getrouter() {
-          if (router7 === null) {
-            router7 = new Router7({
+          if (router6 === null) {
+            router6 = new Router6({
               caseSensitive: this.enabled("case sensitive routing"),
               strict: this.enabled("strict routing")
             });
           }
-          return router7;
+          return router6;
         }
       });
     };
@@ -21141,15 +21141,15 @@ var require_application = __commonJS({
       if (fns.length === 0) {
         throw new TypeError("app.use() requires a middleware function");
       }
-      var router7 = this.router;
+      var router6 = this.router;
       fns.forEach(function(fn2) {
         if (!fn2 || !fn2.handle || !fn2.set) {
-          return router7.use(path, fn2);
+          return router6.use(path, fn2);
         }
         debug(".use app under %s", path);
         fn2.mountpath = path;
         fn2.parent = this;
-        router7.use(path, function mounted_app(req, res, next) {
+        router6.use(path, function mounted_app(req, res, next) {
           var orig = req.app;
           fn2.handle(req, res, function(err) {
             Object.setPrototypeOf(req, orig.request);
@@ -23722,7 +23722,7 @@ var require_express = __commonJS({
     var EventEmitter = __require("node:events").EventEmitter;
     var mixin = require_merge_descriptors();
     var proto = require_application();
-    var Router7 = require_router();
+    var Router6 = require_router();
     var req = require_request();
     var res = require_response();
     exports = module.exports = createApplication;
@@ -23744,8 +23744,8 @@ var require_express = __commonJS({
     exports.application = proto;
     exports.request = req;
     exports.response = res;
-    exports.Route = Router7.Route;
-    exports.Router = Router7;
+    exports.Route = Router6.Route;
+    exports.Router = Router6;
     exports.json = bodyParser.json;
     exports.raw = bodyParser.raw;
     exports.static = require_serve_static();
@@ -33754,12 +33754,12 @@ var require_lib5 = __commonJS({
 });
 
 // src/app.ts
-var import_express7 = __toESM(require_express2(), 1);
+var import_express6 = __toESM(require_express2(), 1);
 var import_cors = __toESM(require_lib3(), 1);
 var import_pino_http = __toESM(require_logger(), 1);
 
 // src/routes/index.ts
-var import_express6 = __toESM(require_express2(), 1);
+var import_express5 = __toESM(require_express2(), 1);
 
 // src/routes/health.ts
 var import_express = __toESM(require_express2(), 1);
@@ -44737,24 +44737,19 @@ router2.get("/", async (req, res) => {
     const languages = await db.select().from(languagesTable);
     const wordCounts = await db.select({
       languageCode: wordsTable.languageCode,
-      count: sql`CAST(COUNT(*) AS INTEGER)`
+      count: sql`cast(count(*) as integer)`
     }).from(wordsTable).groupBy(wordsTable.languageCode);
-    const countMap = new Map(
-      wordCounts.map(({ languageCode, count }) => [languageCode, count])
-    );
-    const response = languages.map((language) => ({
-      id: language.id,
-      code: language.code,
-      name: language.name,
-      wordCount: countMap.get(language.code) ?? 0
+    const countMap = new Map(wordCounts.map((w) => [w.languageCode, w.count]));
+    const result = languages.map((lang) => ({
+      id: lang.id,
+      code: lang.code,
+      name: lang.name,
+      wordCount: countMap.get(lang.code) ?? 0
     }));
-    return res.status(200).json(response);
-  } catch (error) {
-    req.log.error({ error }, "Failed to fetch languages");
-    return res.status(500).json({
-      success: false,
-      message: "Failed to fetch languages"
-    });
+    res.json(result);
+  } catch (err) {
+    req.log.error({ err }, "Failed to list languages");
+    res.status(500).json({ error: "Failed to list languages" });
   }
 });
 var languages_default = router2;
@@ -44884,94 +44879,13 @@ router4.post("/", async (req, res) => {
 });
 var contributions_default = router4;
 
-// src/routes/chat.ts
-var import_express5 = __toESM(require_express2(), 1);
-
-// src/services/gemini.ts
-import { GoogleGenAI } from "@google/genai";
-var ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY
-});
-async function askGemini(prompt) {
-  try {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: [
-        {
-          role: "user",
-          parts: [
-            {
-              text: `
-You are Kokak AI.
-
-You teach Philippine indigenous languages.
-
-Explain simply.
-Give pronunciation tips.
-Provide examples.
-Create quizzes.
-
-User:
-${prompt}
-              `
-            }
-          ]
-        }
-      ]
-    });
-    return response.text;
-  } catch (e) {
-    console.error("========== GEMINI ==========");
-    console.error(e);
-    if (e.response) {
-      console.error(await e.response.text());
-    }
-    throw e;
-  }
-}
-
-// src/routes/chat.ts
-var router5 = (0, import_express5.Router)();
-router5.post("/", async (req, res) => {
-  try {
-    const { message } = req.body;
-    const reply = await askGemini(message);
-    res.json({ reply });
-  } catch (error) {
-    console.error("Gemini Error:", error);
-    console.error("Status:", error?.status);
-    console.error("Message:", error?.message);
-    if (error?.response) {
-      try {
-        console.error(await error.response.text());
-      } catch (error2) {
-        console.error("===== GEMINI ERROR =====");
-        console.error(error2);
-        console.error("status:", error2.status);
-        console.error("message:", error2.message);
-        console.error("body:", error2.response?.text);
-        res.status(500).json({
-          error: error2.message,
-          status: error2.status
-        });
-      }
-    }
-    res.status(500).json({
-      error: error?.message ?? "Gemini failed",
-      status: error?.status
-    });
-  }
-});
-var chat_default = router5;
-
 // src/routes/index.ts
-var router6 = (0, import_express6.Router)();
-router6.use(health_default);
-router6.use("/languages", languages_default);
-router6.use("/puzzle", puzzle_default);
-router6.use("/contributions", contributions_default);
-router6.use("/chat", chat_default);
-var routes_default = router6;
+var router5 = (0, import_express5.Router)();
+router5.use(health_default);
+router5.use("/languages", languages_default);
+router5.use("/puzzle", puzzle_default);
+router5.use("/contributions", contributions_default);
+var routes_default = router5;
 
 // src/lib/logger.ts
 var import_pino = __toESM(require_pino(), 1);
@@ -44992,7 +44906,7 @@ var logger = (0, import_pino.default)({
 });
 
 // src/app.ts
-var app = (0, import_express7.default)();
+var app = (0, import_express6.default)();
 app.use(
   (0, import_pino_http.default)({
     logger,
@@ -45013,8 +44927,8 @@ app.use(
   })
 );
 app.use((0, import_cors.default)());
-app.use(import_express7.default.json());
-app.use(import_express7.default.urlencoded({ extended: true }));
+app.use(import_express6.default.json());
+app.use(import_express6.default.urlencoded({ extended: true }));
 app.use("/api", routes_default);
 var app_default = app;
 
