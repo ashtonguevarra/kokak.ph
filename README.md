@@ -116,14 +116,17 @@ Correct Answer
 ## 🛠️ Tech Stack
 
 ### Frontend
+- TailwindCSS
 - CSS
+- React
 
 ### Backend
 - Node.js
 - Express
+- Type Script
 
 ### Database
-- Supabase
+- Neon
 
 ### AI
 - Gemini API 
@@ -131,18 +134,6 @@ Correct Answer
 - MCP
 - Guardrails
 - Gemini Studio
-
----
-
-## 📂 Project Structure
-
-```
-frontend/
-backend/
-database/
-public/
-docs/
-```
 
 ---
 
@@ -160,16 +151,15 @@ docs/
 
 ---
 
-## 🔮 Future Improvements
+This project was developed with the assistance of AI tools, including Replit AI and ChatGPT.
 
-- Voice pronunciation checker
-- Daily challenges
-- Leaderboards
-- Regional language packs
-- Audio pronunciation recordings from native speakers
-- Open API for Philippine language datasets
-- Mobile application support
+These tools were used to support the development process by:
+- Assisting with code generation and refactoring
+- Helping troubleshoot bugs and runtime errors
+- Explaining frameworks, libraries, and APIs
+- Generating boilerplate code and development suggestions
 
+All architecture, design decisions, database schema, feature implementation, testing, and final code review were performed by the project developers. AI-generated code was reviewed, modified, and integrated where appropriate.
 ---
 
 ## 👥 Contributors
