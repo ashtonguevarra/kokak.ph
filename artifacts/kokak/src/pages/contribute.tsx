@@ -144,6 +144,10 @@ export default function Contribute() {
                       </FormItem>
                     )}
                   />
+                  <Button type="submit" className="w-full font-bold tracking-wide" disabled={submitMutation.isPending}>
+                    {submitMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Press to Record
+                  </Button>
 
                   <Button type="submit" className="w-full font-bold tracking-wide" disabled={submitMutation.isPending}>
                     {submitMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -154,6 +158,7 @@ export default function Contribute() {
             </CardContent>
           </Card>
         </div>
+
 
         <div>
           <h2 className="text-2xl font-serif mb-6 text-foreground">Recent Contributions</h2>

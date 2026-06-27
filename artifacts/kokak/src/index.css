@@ -133,6 +133,13 @@ h1,h2,h3,h4,h5,h6{
     letter-spacing:2px;
 }
 
+.img{
+    border:4px solid #355B2E;
+    box-shadow:
+    0 0 0 3px rgba(168, 240, 119, 0.08),
+    6px 6px black;
+}
+
 .card{
     background:rgba(143, 227, 120, 0.696);
     backdrop-filter:blur(12px);
